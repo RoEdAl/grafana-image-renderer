@@ -1,13 +1,19 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals');
 const webpack = require('webpack');
+const srcDir = path.resolve(__dirname, 'src');
 
 module.exports = {
   target: 'node',
   entry: "./src/app.ts",
   output: {
     filename: "app.js",
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    devtoolModuleFilenameTemplate: (info) => {
+	if (info.resourcePath.startsWith('./src/')) {
+		return path.relative( srcDir, info.resourcePath );
+	}
+    }
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"]
@@ -25,10 +31,10 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new webpack.IgnorePlugin(/\.(css|less)$/),
-    new webpack.BannerPlugin({ banner: 'require("source-map-support").install();', raw: true, entryOnly: false })
+    new webpack.BannerPlugin({ banner: 'require("source-map-support").install({environment: "node"});', raw: true, entryOnly: false })
   ],
   node: {
-    __filename: true,
-    __dirname: true
+    __filename: false,
+    __dirname: false
   }
 };
