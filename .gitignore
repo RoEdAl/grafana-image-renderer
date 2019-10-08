@@ -23,6 +23,7 @@ artifacts
 
 # Dependency directory
 node_modules
+node_modules_production
 bower_components
 
 # Editors

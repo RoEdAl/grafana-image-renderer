@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as os from 'os';
-import * as puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer-core';
 import { Logger } from './logger';
 import uniqueFilename = require('unique-filename');
 

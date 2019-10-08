@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "yarn run tsc",
-    "start": "node build/app.js",
-    "dev": "yarn run tsc-watch --onSuccess \"node build/app.js server --port=3050\""
+    "build": "webpack --config ./webpack.config.js --mode=production",
+    "node-modules": "yarn install --prefer-offline --network-concurrency 2 --network-timeout 300000 --modules-folder ./node_modules_production --no-lockfile --production=true --ignore-optional  --non-interactive",
+    "start-server": "env NODE_ENV=production node dist/app.js server --port=50124",
+    "start-plugin": "env NODE_ENV=production node dist/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,17 +20,22 @@
     "grpc": "^1.11.3",
     "minimist": "^1.2.0",
     "morgan": "^1.9.0",
-    "mz": "^2.7.0",
-    "puppeteer": "^1.7.0",
-    "typescript": "^2.8.3",
+    "puppeteer-core": "^1.20.0",
+    "source-map-support": "^0.5.13",
     "unique-filename": "^1.1.0"
   },
   "devDependencies": {
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
+    "mz": "^2.7.0",
     "pkg": "4.3.8",
     "prettier": "1.9.2",
-    "tsc-watch": "^1.0.21"
+    "ts-loader": "^6.2.0",
+    "tsc-watch": "^1.0.21",
+    "typescript": "^2.8.3",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-node-externals": "^1.7.2"
   },
   "resolutions": {
     "set-value": "2.0.1"
