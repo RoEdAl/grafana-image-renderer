@@ -6,8 +6,8 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js --mode=production",
     "node-modules": "yarn install --prefer-offline --network-concurrency 2 --network-timeout 300000 --modules-folder ./node_modules_production --no-lockfile --production=true --ignore-optional  --non-interactive",
-    "start-server": "env NODE_ENV=production node dist/app.js server --port=50124",
-    "start-plugin": "env NODE_ENV=production node dist/app.js"
+    "start-server": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js server --port=50124",
+    "start-plugin": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js"
   },
   "author": "",
   "license": "ISC",

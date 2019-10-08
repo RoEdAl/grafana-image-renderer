@@ -1,4 +1,4 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-node ${DIR}/dist/app.js
+env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node ${DIR}/dist/app.js
