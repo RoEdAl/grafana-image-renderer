@@ -48,10 +48,21 @@ export class HttpServer {
     };
     this.log.info(`render request received for ${options.url}`);
     let result = await this.browser.render(options);
-
-    res.sendFile(result.filePath);
+    await sendFile(res, result.filePath);
   }
 }
+
+const sendFile = (resp: express.Response, p) => new Promise((res, rej) => {
+	resp.sendFile(p, (err) => {
+		fs.unlink(p, () => {
+			if (err) {
+				rej(err);
+			} else {
+				res();
+			}
+		});
+	});
+});
 
 // wrapper for our async route handlers
 // probably you want to move it to a new file
