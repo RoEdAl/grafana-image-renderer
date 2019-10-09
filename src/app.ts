@@ -15,17 +15,26 @@ async function main() {
     const plugin = new GrpcPlugin(logger, browser);
     plugin.start();
   } else if (command === 'server') {
-    if (!argv.port) {
-      console.log('Specify http port using --port=5000');
-      return;
+    let verbose = false;
+    if (argv.verbose) verbose = true;
+    if (argv.port) {
+	const logger = new ConsoleLogger();
+        const browser = new Browser(logger);
+        const server = new HttpServer({port: argv.port, 'verbose': verbose}, logger, browser);
+
+        server.start();
+    } else if (argv.socket)
+    {
+        const logger = new ConsoleLogger();
+        const browser = new Browser(logger);
+        const server = new HttpServer({socket: argv.socket, 'verbose': verbose}, logger, browser);
+
+        server.start();
     }
-
-    const logger = new ConsoleLogger();
-    const browser = new Browser(logger);
-    const server = new HttpServer({port: argv.port}, logger, browser);
-
-    server.start();
-
+    else {
+        console.log('Specify http port using --port option or specify unix socket using --socket option')
+        return;
+    }
   } else {
     console.log('Unknown command');
   }

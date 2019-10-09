@@ -34,6 +34,7 @@ module.exports = {
     new webpack.BannerPlugin({ banner: 'require("source-map-support").install({environment: "node"});', raw: true, entryOnly: false })
   ],
   node: {
+    process: true,
     __filename: false,
     __dirname: false
   }
