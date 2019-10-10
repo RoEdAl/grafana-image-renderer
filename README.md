@@ -1,4 +1,4 @@
-# Grafana Image Renderer [![CircleCI](https://circleci.com/gh/grafana/grafana-image-renderer.svg?style=svg)](https://circleci.com/gh/grafana/grafana-image-renderer)
+# Grafana Image Renderer
 
 A Grafana backend plugin that handles rendering panels and dashboards to PNGs using headless Chrome.
 
@@ -12,15 +12,16 @@ A Grafana backend plugin that handles rendering panels and dashboards to PNGs us
 
 ### No dependencies
 
-This plugin is packaged in a single executable with [Node.js](https://nodejs.org/) runtime and [Chromium](https://www.chromium.org/Home). It does not require any additional software to be installed on the Grafana server.
+This plugin is packaged in a single executable with [Node.js](https://nodejs.org/) runtime and [Chromium](https://www.chromium.org/Home).
+It does not require any additional software to be installed on the *Grafana* server.
 
 ## Installation
 
 ### Using grafana-cli
 
-**NOTE:** Installing this plugin using grafana-cli is supported from Grafana v6.4.
+**NOTE:** Installing this plugin using `grafana-cli` is supported from Grafana v6.4.
 
-```
+```sh
 grafana-cli plugins install grafana-image-renderer
 ```
 
@@ -29,7 +30,7 @@ grafana-cli plugins install grafana-image-renderer
 1. Git clone this repo into the Grafana external plugins folder.
 2. Install dependencies and build.
 
-    ```
+    ```sh
     yarn install --pure-lockfile
     yarn run build
     ```
@@ -45,7 +46,7 @@ Read more about [remote rendering using Docker](https://github.com/grafana/grafa
 
 1.  Run server specifying Unix socket path via `--socket` parameter:
 
-      ```
+      ```sh
       env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js --socket=/tmp/grafana-renderer.sock
       ```
 
@@ -54,8 +55,8 @@ Read more about [remote rendering using Docker](https://github.com/grafana/grafa
       *NGiNX* configuration:
 
 
-      ```
-      location /grafana-image-renderer/ {
+      ```nginx
+      location /grafana-image-renderer {
           proxy_http_version 1.1;
           proxy_buffering off;
           proxy_ignore_headers X-Accel-Buffering;
@@ -64,17 +65,18 @@ Read more about [remote rendering using Docker](https://github.com/grafana/grafa
           proxy_send_timeout 15s;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
           proxy_set_header Host $http_host;
           proxy_set_header X-NginX-Proxy true;
-          proxy_pass http://unix://tmp/grafana-renderer.sock:/;
+          proxy_pass http://unix://tmp/grafana-renderer.sock:/render;
       }
       ```
 
 ## Troubleshooting
 
-To get more logging information, update the Grafana configuration:
+To get more logging information, update the *Grafana* configuration:
 
-```
+```ini
 [log]
 filters = rendering:debug
 ```
