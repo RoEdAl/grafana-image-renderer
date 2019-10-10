@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --mode=production",
+    "build-server": "webpack --env.APP_MODE server --config ./webpack.config.js --mode=production",
+    "build-plugin": "webpack --env.APP_MODE plugin --config ./webpack.config.js --mode=production",
     "node-modules": "yarn install --prefer-offline --network-concurrency 2 --network-timeout 300000 --modules-folder ./node_modules_production --no-lockfile --production=true --ignore-optional  --non-interactive --link-duplicates --no-bin-links",
     "run-server": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js server --port=50124 --verbose",
     "run-server-sock": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js server --socket=/tmp/grafana-renderer.sock --verbose",
@@ -18,12 +19,14 @@
     "boom": "^7.2.0",
     "express": "^4.16.3",
     "google-protobuf": "3.5.0",
-    "grpc": "^1.11.3",
     "minimist": "^1.2.0",
     "morgan": "^1.9.0",
     "puppeteer-core": "^1.20.0",
     "source-map-support": "^0.5.13",
     "unique-filename": "^1.1.0"
+  },
+  "optionalDependencies": {
+    "grpc": "^1.11.3"
   },
   "devDependencies": {
     "husky": "^0.14.3",
@@ -31,6 +34,7 @@
     "mz": "^2.7.0",
     "pkg": "4.3.8",
     "prettier": "1.9.2",
+    "terser-webpack-plugin": "^2.1.2",
     "ts-loader": "^6.2.0",
     "tsc-watch": "^1.0.21",
     "typescript": "^2.8.3",

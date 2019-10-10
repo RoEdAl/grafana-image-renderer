@@ -15,6 +15,7 @@ export class HttpServer {
 
   start() {
     this.app = express();
+    this.app.set('x-powered-by', false);
     if (this.options.verbose) {
         this.app.use(morgan('combined'));
     }
