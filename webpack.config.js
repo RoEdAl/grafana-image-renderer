@@ -38,13 +38,19 @@ module.exports = function(env,argv) {
       ...ModuleReplacement(env)
     ],
     optimization: {
-      minimize: true,
+      nodeEnv: 'production',
       minimizer: [new TerserPlugin({
          cache: false,
          parallel: true,
          exclude: /node_modules/,
          sourceMap: true,
-         terserOptions: {keep_fnames: false, keep_classnames: false, module: false, extractComments: false, output: {ecma: 6, beautify: false, comments: false}}
+         terserOptions: {
+           keep_fnames: false,
+           keep_classnames: false,
+           module: false,
+           extractComments: false,
+           output: {ecma: 6, comments: false}
+         }
       })],
     },
     node: {

@@ -6,7 +6,7 @@
   "scripts": {
     "build-server": "webpack --env.APP_MODE server --config ./webpack.config.js --mode=production",
     "build-plugin": "webpack --env.APP_MODE plugin --config ./webpack.config.js --mode=production",
-    "node-modules": "yarn install --prefer-offline --network-concurrency 2 --network-timeout 300000 --modules-folder ./node_modules_production --no-lockfile --production=true --ignore-optional  --non-interactive --link-duplicates --no-bin-links",
+    "node-modules": "yarn install --prefer-offline --network-concurrency 1 --network-timeout 300000 --modules-folder ./node_modules_production --no-progress --no-lockfile --production=true --ignore-optional  --non-interactive --link-duplicates --no-bin-links",
     "run-server": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js server --port=50124 --verbose",
     "run-server-sock": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js server --socket=/tmp/grafana-renderer.sock --verbose",
     "run-plugin": "env NODE_ENV=production CHROME_BIN=/usr/bin/chromium node dist/app.js"

@@ -51,7 +51,7 @@ export class HttpServer {
   }
 
   chmodSocket = () => {
-     fs.chmod(this.options.socket, 0x777, (err) => {
+     fs.chmod(this.options.socket, 0x660, (err) => {
          if (err)
          {
              console.error(err);
